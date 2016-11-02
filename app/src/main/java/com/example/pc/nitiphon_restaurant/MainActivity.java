@@ -1,5 +1,6 @@
 package com.example.pc.nitiphon_restaurant;
 
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
@@ -28,8 +29,16 @@ public class MainActivity extends AppCompatActivity {
 
         connectedSQLite();
         //Test Add Value
+        //deleteAllData();
         //testAddValue();
         synJSONtoSQLite();
+    }
+
+    private void deleteAllData() {
+        SQLiteDatabase objSqLiteDatabase=openOrCreateDatabase("Restaurant.db",MODE_APPEND,null);
+        objSqLiteDatabase.delete("userTABLE",null,null);
+        objSqLiteDatabase.delete("foodTABLE",null,null);
+        objSqLiteDatabase.delete("orderTABLE",null,null);
     }
 
     private void synJSONtoSQLite() {
@@ -88,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
                             String strFood = jsonObject.getString("Food");
                             String strSource=jsonObject.getString("Source");
                             String strPrice=jsonObject.getString("Price");
-                            objUserTABLE.addNewUser(strFood,strSource,strPrice);
+                            objFoodTABLE.addNewFood(strFood,strSource,strPrice);
                             break;
                     }
                 }
